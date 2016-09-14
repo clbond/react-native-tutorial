@@ -6,10 +6,6 @@ npm-debug.log*
 # .DS_Store
 .DS_Store
 
-# IDE data
-.vscode
-.idea
-
 # Build output
 ios/build
 ios/Chat.xcodeproj/xcuserdata
