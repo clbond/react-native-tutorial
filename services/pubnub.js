@@ -1,6 +1,9 @@
 import PubNub from 'pubnub';
 
-import {configuration} from './configuration';
+import {
+  channels,
+  configuration,
+} from './configuration';
 
 let connection;
 
@@ -44,27 +47,26 @@ export const connect = () => {
 
     pubnub.addListener(initialHandler);
 
-    handshake(pubnub).then(resolve).catch(reject);
+    return handshake(pubnub).then(resolve).catch(reject);
   });
 
   return connection;
 };
 
-const handshake = pubnub => {
-  return new Promise((resolve, reject) => {
+const handshake = pubnub =>
+  new Promise((resolve, reject) => {
     pubnub.time(status => {
       if (status.error) {
         reject(new Error(`PubNub service failed to respond to time request: ${status.error}`));
       }
       else {
-        subscribeToChannel(pubnub);
+        pubnub.subscribe(subscriptionOptions(), () => resolve());
       }
     });
   });
-}
 
 export const publish = msg =>
-  connected.then(handle => {
+  connection.then(handle => {
     return new Promise(resolve => {
       handle.publish(msg,
         (status, response) => {
@@ -73,17 +75,15 @@ export const publish = msg =>
     });
   });
 
-const identifier = () => Math.random().toString(16).slice(2);
+const subscriptionOptions = () => ({
+  channels,
+  message: () => {
+    debugger;
+  },
+  presence: () => {
+    debugger;
+  },
+  withPresence: true,
+});
 
-const subscribeToChannel = pubnub => {
-  pubnub.subscribe({
-    channels: ['ReactChat'],
-    withPresence: true,
-    message: function () {
-      debugger;
-    },
-    presence: function () {
-      debugger;
-    },
-  });
-}
+const identifier = () => Math.random().toString(16).slice(2);
