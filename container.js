@@ -11,7 +11,7 @@ import {
 import {connect} from 'react-redux';
 
 import {connectionActions} from './actions';
-import {ConnectionState} from './services';
+import {ConnectionState} from './constants';
 import {Conversation} from './components/conversation';
 
 const mapStateToProps =

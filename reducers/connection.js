@@ -6,7 +6,7 @@ import {
   DISCONNECTED,
 } from '../actions';
 
-import {ConnectionState} from '../services';
+import {ConnectionState} from '../constants';
 
 export const initialState = fromJS({
   state: ConnectionState.Idle, // connection state

@@ -3,7 +3,7 @@ import PubNub from 'pubnub';
 import {
   channels,
   configuration,
-} from './configuration';
+} from '../constants';
 
 let connection;
 

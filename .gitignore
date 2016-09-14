@@ -3,6 +3,10 @@ logs
 *.log
 npm-debug.log*
 
+# Patch orig/reject files
+*.orig
+*.rej
+
 # .DS_Store
 .DS_Store
 
