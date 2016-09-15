@@ -13,8 +13,10 @@ import {connect} from 'react-redux';
 
 import {connectionActions} from './actions';
 import {ConnectionState} from './constants';
-import Conversation from './components/Conversation';
-import s from './styles';
+import {
+  Conversation,
+  styles,
+} from './components';
 
 const mapStateToProps =
   state => ({
@@ -30,15 +32,15 @@ const mapDispatchToProps =
 class UnconnectedContainer extends Component {
   render() {
     const {connectionState, failureTrace} = this.props;
-    switch (connectionState) {
 
+    switch (connectionState) {
       case ConnectionState.Idle:
         return null;
       case ConnectionState.Connecting:
         return (
           <ActivityIndicator
             animating={true}
-            style={[s.flx1, s.flxCol, s.itemsCenter, s.jcCenter]}
+            style={[styles.flex, styles.column, styles.center]}
             size='large'
           />
         );
@@ -53,18 +55,18 @@ class UnconnectedContainer extends Component {
                 visible={true}
                 style={styles.center}
                 onRequestClose={this.onReconnect.bind(this)}>
-              <View style={s.mt1}>
+              <View style={styles.marginTop}>
                 <View>
                   <Text>
                     Failed to connect to the PubNub service
                   </Text>
-                  <View style={[s.mt3, s.mb3]}>
-                    <Text style={s.stackTrace}>
+                  <View style={styles.vmargin}>
+                    <Text style={styles.stackTrace}>
                       {failureTrace}
                     </Text>
                   </View>
                   <TouchableHighlight onPress={this.onReconnect.bind(this)}>
-                    <Text style={s.royalBlue}>Reconnect</Text>
+                    <Text style={styles.button}>Reconnect</Text>
                   </TouchableHighlight>
                 </View>
               </View>
@@ -80,8 +82,8 @@ class UnconnectedContainer extends Component {
     this.props.connect();
 
     // TODO: clean up
-    // Linking.openURL('http://localhost:8080/login')
-      // .then(res => console.log(res));
+    Linking.openURL('http://localhost:8080/login')
+      .then(res => console.log(res));
   }
 
   onReconnect() {

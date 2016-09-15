@@ -11,11 +11,12 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import User from './User';
 
-import s from '../styles';
+import {User} from './user';
 
-class ChatUsers extends Component {
+import {iconSize, styles} from './styles';
+
+export class ChatUsers extends Component {
   userSource = new ListView.DataSource({rowHasChanged: (lhs, rhs) => lhs !== rhs});
 
   constructor() {
@@ -38,24 +39,28 @@ class ChatUsers extends Component {
     const {users} = this.props;
 
     const containerStyle = [
-      s.flxRow,
-      s.jcStart,
-      s.ml2,
-      s.mt3,
+      styles.row,
+      styles.users,
+      styles.marginLeft,
+      styles.marginTop,
+      {flex: 0},
     ];
 
-    const textStyle = [ s.ml1, s.mt2 ];
+    const textStyle = [
+      styles.marginTop,
+      styles.marginLeft,
+    ];
 
     return (
       <View style={containerStyle}>
         <View>
-          <Icon name="people" size={s.iconSize} />
+          <Icon name="people" size={iconSize} />
         </View>
         <View style={textStyle}>
           <Text>{users.length} online</Text>
         </View>
-        <View style={[s.flx1, s.flxRow]}>
-          {users.map(id => <View key={id} style={s.p3}><User id={id} /></View>)}
+        <View style={[styles.flex, styles.row]}>
+          {users.map(id => <View key={id} style={styles.padding}><User id={id} /></View>)}
         </View>
       </View>
     );
@@ -65,5 +70,3 @@ class ChatUsers extends Component {
 ChatUsers.propTypes = {
   users: React.PropTypes.array,
 };
-
-export default ChatUsers;

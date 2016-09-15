@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import {Image} from 'react-native';
 
-class User extends Component {
+export class User extends Component {
   render() {
     const {id} = this.props;
 
@@ -18,5 +18,3 @@ class User extends Component {
 User.propTypes = {
   id: React.PropTypes.string,
 };
-
-export default User;
