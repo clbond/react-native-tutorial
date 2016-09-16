@@ -79,6 +79,10 @@ class BareConversation extends Component {
     publishTypingState(this.props.currentUserId, typing);
   }
 
+  onMessageReceived(m) {
+    this.props.addMessage([m.message]);
+  }
+
   onPresenceChange(presenceData) {
     switch (presenceData.action) {
       case 'join':

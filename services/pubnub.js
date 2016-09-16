@@ -101,7 +101,7 @@ export const subscribe = (presenceHandler, messageHandler) => {
 
   connect().then(({ pubnub }) => {
     pubnub.subscribe({
-      channel,
+      channels: [channel],
       withPresence: true,
     })
   });
