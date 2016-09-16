@@ -80,7 +80,7 @@ class BareConversation extends Component {
   }
 
   onMessageReceived(m) {
-    this.props.addMessage([m.message]);
+    this.props.addMessage(m.message);
   }
 
   onPresenceChange(presenceData) {
@@ -108,12 +108,13 @@ class BareConversation extends Component {
   }
 
   fetchHistory() {
-    const { props } = this;
-    history(channel, props.lastMessageTimestamp).then(response => {
+    const {lastMessageTimestamp, addHistory} = this.props;
+
+    history(lastMessageTimestamp).then(response => {
       // make sure we're not duplicating our existing history
       if (response.messages.length > 0 &&
-          props.lastMessageTimeStamp !== response.startTimeToken) {
-        props.addHistory(response.messages, response.startTimeToken)
+          lastMessageTimestamp !== response.startTimeToken) {
+        addHistory(response.messages, response.startTimeToken)
       }
     })
   }
