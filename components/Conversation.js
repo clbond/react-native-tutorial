@@ -79,8 +79,8 @@ class BareConversation extends Component {
     publishTypingState(this.props.currentUserId, typing);
   }
 
-  onMessageReceived(m) {
-    this.props.addMessage(m.message);
+  onMessageReceived(message) {
+    this.props.addMessage(message.message);
   }
 
   onPresenceChange(presenceData) {
