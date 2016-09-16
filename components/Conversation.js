@@ -18,6 +18,7 @@ import {channel} from '../constants';
 
 import {
   history,
+  participants,
   publishTypingState,
   publishMessage,
   subscribe,
@@ -58,6 +59,10 @@ class BareConversation extends Component {
       p => this.onPresenceChange(p),
       m => this.onMessageReceived(m));
 
+    participants().then(participants => {
+      this.props.addUsers(participants.map(p => p.uuid));
+    });
+
     this.fetchHistory();
   }
 
@@ -91,7 +96,7 @@ class BareConversation extends Component {
   onPresenceChange(presenceData) {
     switch (presenceData.action) {
       case 'join':
-        this.props.addUser(presenceData.uuid);
+        this.props.addUsers([presenceData.uuid]);
         break;
       case 'leave':
       case 'timeout':
